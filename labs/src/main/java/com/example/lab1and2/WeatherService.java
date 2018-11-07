@@ -41,7 +41,8 @@ public class WeatherService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         final int time = intent.getIntExtra("time", 0);
         final String city = intent.getStringExtra("city");
-        if(time != 0 && city != null) {
+        System.out.println(city);
+        if(!city.isEmpty()) {
             Toast.makeText(getApplicationContext(), "" + time + city, Toast.LENGTH_SHORT).show();
             Thread weather = new Thread(new Runnable() {
                 @Override
@@ -52,7 +53,7 @@ public class WeatherService extends Service {
                             TimeUnit.MINUTES.sleep(time);
                         }
                     } catch(InterruptedException ie){
-
+                        ie.printStackTrace();
                     }
                 }
             });
