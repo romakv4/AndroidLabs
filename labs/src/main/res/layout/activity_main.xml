@@ -60,6 +60,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="GO!"
+        android:onClick="onClickGo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cityChoose" />
@@ -74,6 +75,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Save"
+        android:onClick="onClickSave"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sendRequest" />
@@ -88,6 +90,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Search"
+        android:onClick="onClickSearch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/saveButton" />
@@ -102,6 +105,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="view"
+        android:onClick="onClickView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchButton" />

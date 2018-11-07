@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">lab1and2</string>
+    <string name="settings_title">Settings</string>
 </resources>
