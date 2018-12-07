@@ -1,5 +1,8 @@
 package com.example.lab1and2;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
@@ -19,6 +22,8 @@ import org.json.JSONObject;
 import java.util.concurrent.TimeUnit;
 
 public class WeatherService extends Service {
+
+    int counter = 1;
 
     @Override
     public void onCreate() {
@@ -50,6 +55,7 @@ public class WeatherService extends Service {
                     try {
                         while(true) {
                             getWeather(city);
+                            sendNoti();
                             TimeUnit.MINUTES.sleep(time);
                         }
                     } catch(InterruptedException ie){
@@ -62,6 +68,42 @@ public class WeatherService extends Service {
             Toast.makeText(getApplicationContext(), "Требуемые параметры не были заданы", Toast.LENGTH_SHORT).show();
         }
         return super.onStartCommand(intent, flags, startId);
+    }
+
+    public void sendNoti() {
+
+        Notification.Builder notiBuilder = builder(counter);
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            Notification notification = notiBuilder.build();
+            NotificationManager notiMan = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            notiMan.notify(1, notification);
+        }
+    }
+
+    public Notification.Builder builder(int counter) {
+
+        Intent resultIntent = new Intent(this, SettingsActivity.class);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 0, resultIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        if (counter == 1) {
+            Notification.Builder notiBuilder = new Notification.Builder(this)
+                    .setContentTitle("Информация!")
+                    .setContentText(counter + " запись была добавлена в базу данных")
+                    .setSmallIcon(R.mipmap.ic_launcher_round)
+                    .setContentIntent(resultPendingIntent)
+                    .setAutoCancel(true);
+            return notiBuilder;
+        } else {
+            Notification.Builder notiBuilder = new Notification.Builder(this)
+                    .setContentTitle("Информация!")
+                    .setContentText(counter + " записи(ей) были добавлены в базу данных")
+                    .setSmallIcon(R.mipmap.ic_launcher_round)
+                    .setContentIntent(resultPendingIntent)
+                    .setAutoCancel(true);
+            return notiBuilder;
+        }
     }
 
     public void getWeather(String city) {
@@ -80,7 +122,7 @@ public class WeatherService extends Service {
                             Double temperature = main.getDouble("temp");
                             Weather weather = new Weather(city, temperature);
                             weather.save();
-                            Toast.makeText(getApplicationContext(), "Запись была добавлена в базу данных", Toast.LENGTH_SHORT).show();
+                            counter++;
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
