@@ -92,6 +92,7 @@ public class WeatherService extends Service {
                     .setContentTitle("Информация!")
                     .setContentText(counter + " запись была добавлена в базу данных")
                     .setSmallIcon(R.mipmap.ic_launcher_round)
+                    .setWhen(System.currentTimeMillis())
                     .setContentIntent(resultPendingIntent)
                     .setAutoCancel(true);
             return notiBuilder;
@@ -100,6 +101,7 @@ public class WeatherService extends Service {
                     .setContentTitle("Информация!")
                     .setContentText(counter + " записи(ей) были добавлены в базу данных")
                     .setSmallIcon(R.mipmap.ic_launcher_round)
+                    .setWhen(System.currentTimeMillis())
                     .setContentIntent(resultPendingIntent)
                     .setAutoCancel(true);
             return notiBuilder;
